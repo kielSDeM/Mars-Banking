@@ -1,6 +1,5 @@
 mod new_user;
 pub use crate::new_user::bank_new_user;
-use rand::Rng;
 
 fn user_account(){
     println!("Welcome! How may I help you today?");
