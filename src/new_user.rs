@@ -1,4 +1,5 @@
 use rand::Rng;
+
 fn user_info(){
     let mut new_user = String::new();
     let mut age = String::new();
