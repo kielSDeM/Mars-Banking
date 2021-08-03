@@ -1,8 +1,5 @@
 use rand::Rng;
-use std::io::Read;
-
-
-fn yes(){
+fn user_info(){
     let mut new_user = String::new();
     let mut age = String::new();
     println!("What is your name?");
@@ -11,6 +8,8 @@ fn yes(){
     println!(" ");
     println!("Hello {}, What is your age? ", new_user);
     std::io::stdin().read_line(&mut age);
+}
+fn acc_number(){
     println!("We will generate a new account number \
                and routing number for.");
     let account_number =
@@ -20,17 +19,27 @@ fn yes(){
         rand::thread_rng().gen_range(10000000..99999999);
     println!("Your account routing number is {}", routing_number);
 }
-
+//function for the yes input in the bank_new_user function.
+fn yes(){
+    user_info();
+    acc_number();
+}
+//function that takes input for making a new account.
 pub fn bank_new_user() {
     let mut account= String::new();
     println!("Would you like to make a new account with us today?");
     loop {
         println!(" yes: continue to application, no: continue browsing , \
         or exit: to exit");
-        std::io::stdin().read_line(&mut account);
+        account.clear();
+        std::io::stdin().read_line(&mut account)
+            .expect("please type yes, no or exit.");
         let account = account.trim();
        match account {
-           "yes" => yes(),
+           "yes" => {
+               yes();
+               break;
+           }
 
            "no" => {
                println!("You do not need an account to continue browsing.");
@@ -42,8 +51,9 @@ pub fn bank_new_user() {
                 Have a wonderful day!");
                break;
         }
-            _ => {println!("Error! Enter yes, no, or exit.")}
+           _ => {println!("Error! Enter yes, no, or exit.")}
         }
+
     }
 }
 
