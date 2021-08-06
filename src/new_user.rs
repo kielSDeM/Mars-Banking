@@ -1,4 +1,6 @@
 use rand::Rng;
+//just asks for the users name and age and no more personal info for incase someone wants to check
+//out this repo.
 fn user_info(){
     let mut new_user = String::new();
     let mut age = String::new();
