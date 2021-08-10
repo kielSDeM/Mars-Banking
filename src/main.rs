@@ -1,18 +1,29 @@
+mod ll;
 mod new_user;
+mod settings;
 mod user_account;
 
 pub use crate::new_user::bank_new_user;
-
-fn settings() {
-    /*TODO: Just going to make 3 sets of settings, 1. turn card on or off
-        2.Close Bank account, 3. Change username. I haven't implemented a function
-        for changing the user name yet because I wanted to start on part2 of my
-        project.
-    */
-
-}
+pub use crate::settings::settings;
+pub use crate::user_account::user_account;
 
 fn main() {
+    let age3 = String::new();
+
+    let mut select = String::new();
     println!("Welcome to Mars Banking!");
-    bank_new_user();
+    loop {
+        println!("What would you like to do today?");
+        println!("Create a new account: 1\nLogin: 2\nSettings: 3\nExit: 4");
+        select.clear();
+        std::io::stdin().read_line(&mut select);
+        let select = select.trim();
+        match select {
+            "1" => bank_new_user(),
+            "2" => user_account(&age3),
+            "3" => settings(),
+            "4" => break,
+            _ => {}
+        }
+    }
 }
