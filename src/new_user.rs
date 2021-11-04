@@ -4,66 +4,92 @@ use rand::Rng;
 //out this repo.
 #[allow(dead_code)]
 pub trait UserInfo {
-    fn user_info(&mut self);
-    fn acc_no(&mut self);
-    fn yes(self);
-    fn bank_new_user(self);
+    fn user_info();
+    fn acc_no();
+    fn yes();
 }
 pub struct NewUser {
     age: String,
     new_user: String,
-    account: String,
     account_number: i32,
     routing_number: i32,
     select: String,
 }
+
+pub trait CreateAccount {
+    fn bank_new_user();
+}
+
+pub struct AccountCreation {
+    account: String,
+}
 //function for user info.
 impl UserInfo for NewUser {
-    fn user_info(&mut self) {
-        self.age = String::new();
-        self.new_user = String::new();
+    fn user_info() {
+        let mut user_info = NewUser {
+            age: String::new(),
+            new_user: String::new(),
+            account_number: rand::thread_rng().gen_range(10000000..99999999),
+            routing_number: rand::thread_rng().gen_range(10000000..99999999),
+            select: String::new(),
+        };
+        user_info.age = String::new();
+        user_info.new_user = String::new();
         println!("What is your name?");
         print!("Name: ");
-        std::io::stdin().read_line(&mut self.new_user);
+        std::io::stdin().read_line(&mut user_info.new_user);
         println!(" ");
-        println!("Hello {}, What is your age? ", self.new_user);
-        std::io::stdin().read_line(&mut self.age);
-        let age2: String = self.age.trim().into();
-
+        println!("Hello {}, What is your age? ", user_info.new_user);
+        std::io::stdin().read_line(&mut user_info.age);
+        user_info.age.trim().into();
     }
 
-    fn acc_no(&mut self) {
+    fn acc_no() {
+        let mut user_info = NewUser {
+            age: String::new(),
+            new_user: String::new(),
+            account_number: rand::thread_rng().gen_range(10000000..99999999),
+            routing_number: rand::thread_rng().gen_range(10000000..99999999),
+            select: String::new(),
+        };
         println!(
             "We will generate a new account number \
                and routing number for you."
         );
-        self.account_number = rand::thread_rng().gen_range(10000000..99999999);
-        println!("Your account number is {}", self.account_number);
-        self.routing_number = rand::thread_rng().gen_range(10000000..99999999);
-        println!("Your account routing number is {}", self.routing_number);
+        user_info.account_number = rand::thread_rng().gen_range(10000000..99999999);
+        println!("Your account number is {}", user_info.account_number);
+        user_info.routing_number = rand::thread_rng().gen_range(10000000..99999999);
+        println!(
+            "Your account routing number is {}",
+            user_info.routing_number
+        );
     }
     //function for the yes input in the bank_new_user function.
-    fn yes(self) {
-        NewUser::user_info(&mut self);
-        NewUser::acc_no(&mut self);
+    fn yes() {
+        NewUser::user_info();
+        NewUser::acc_no();
     }
     //function that takes input for making a new account.
-    fn bank_new_user(self) {
-        self.account = String::new();
+}
+impl CreateAccount for AccountCreation {
+    fn bank_new_user() {
+        let mut new_user: AccountCreation = AccountCreation {
+            account: String::new(),
+        };
         println!("Would you like to make a new account with us today?");
         loop {
             println!(
                 " yes: continue to application, no: continue browsing , \
-        or exit: to exit"
+            or exit: to exit"
             );
-            self.account.clear();
+            new_user.account.clear();
             std::io::stdin()
-                .read_line(&mut self.account)
+                .read_line(&mut new_user.account)
                 .expect("please type yes, no or exit.");
-            let account = self.account.trim();
+            let account = new_user.account.trim();
             match account {
                 "yes" => {
-                    self.yes();
+                    NewUser::yes();
                     break;
                 }
 
@@ -75,7 +101,7 @@ impl UserInfo for NewUser {
                 "exit" => {
                     println!(
                         "Thank you for choosing Mars Banking for your banking needs!\
-                Have a wonderful day!"
+                    Have a wonderful day!"
                     );
                     break;
                 }
