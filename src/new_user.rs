@@ -1,8 +1,6 @@
 use rand::Rng;
 //just asks for the users name and age and no more personal info for incase someone wants to check
 //out this repo.
-#[allow(dead_code)]
-
 pub struct NewUser {
     age: String,
     new_user: String,
@@ -91,3 +89,4 @@ impl CreateAccount for AccountCreation {
         }
     }
 }
+
